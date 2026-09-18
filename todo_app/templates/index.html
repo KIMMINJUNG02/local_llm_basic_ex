@@ -1,0 +1,34 @@
+{% extends "base.html" %} <!-- 자식 템플릿이 재정의하는 블록(base.html 상속받음) -->
+{% block content %}
+    <main>
+        <a href="/"><p class="head_img"></p></a>
+        <h4>나를 성장시키는 메모</h4>
+        <br>
+    <form action="/add" method="post"> <!--action은 이동할 경로, method는 요청 방식(POST)-->
+        <!-- <textarea name="task" rows="5" placeholder="Enter your task" id="task" required></textarea> -->
+        <textarea name="task" rows="5" placeholder="Enter your task" id="task"></textarea>
+        <button type="submit" id="add_task">
+          Add
+        </button>
+    </form> <!--입력은 form 태그, button type은 submit-->
+	
+	    <br>
+	    <h2>Tasks</h2>
+	    <div>
+            {% for todo in todos %}
+            <div class="task">
+                {% if todo.completed %}
+                    <strike>{{todo.task}}</strike>
+                {% else %}
+                    {{todo.task}}
+                {% endif %}
+                
+                <small>
+                    <a href="/edit/{{ todo.id }}">Edit</a>
+                    <a href="/delete/{{ todo.id }}">Delete</a>
+                </small>
+            </div>
+            {% endfor %}
+	    </div>
+    </main>
+{% endblock content %}
